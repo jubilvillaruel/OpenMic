@@ -10,8 +10,8 @@ import { GigsModule } from './gigs/gigs.module';
   imports: [
     ConfigModule.forRoot({ isGlobal: true }), // Load environment variables from .env
     MongooseModule.forRootAsync({
-      imports: [ConfigModule], // Inject ConfigModule
-      useFactory: async (configService: ConfigService) => ({
+      // Inject ConfigModule
+      useFactory: (configService: ConfigService) => ({
         uri: configService.get<string>('MONGODB_URI'), // Use the environment variable
       }),
       inject: [ConfigService], // Inject ConfigService
