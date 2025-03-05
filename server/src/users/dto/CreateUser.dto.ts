@@ -5,7 +5,11 @@ import { IsString, IsEmail, IsOptional, IsArray, IsNotEmpty} from "class-validat
 export class CreateUserDto {
   @IsNotEmpty()
   @IsString()
-  readonly name: string;
+  readonly firstName: string;
+
+  @IsNotEmpty()
+  @IsString()
+  readonly lastName: string;
 
   @IsNotEmpty()
   @IsEmail()
@@ -25,12 +29,9 @@ export class CreateUserDto {
   readonly birthday?: Date;
 
   @IsNotEmpty()
-  @IsOptional()
-  @IsArray()
-  readonly instruments?: string[];
-
   @IsNotEmpty()
-  @IsOptional()
   @IsArray()
-  readonly genres?: string[];
+  readonly accountType: string[];
+
+  
 }

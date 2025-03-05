@@ -9,34 +9,39 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdateUserDto = void 0;
+exports.UpdateGigDto = void 0;
 const class_validator_1 = require("class-validator");
-class UpdateUserDto {
-    firstName;
-    lastName;
-    email;
-    gender;
-    birthday;
+class UpdateGigDto {
+    gigName;
+    gigDescription;
+    gigDate;
+    gigLocation;
+    gigImage;
 }
-exports.UpdateUserDto = UpdateUserDto;
+exports.UpdateGigDto = UpdateGigDto;
 __decorate([
     (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], UpdateUserDto.prototype, "firstName", void 0);
+], UpdateGigDto.prototype, "gigName", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], UpdateUserDto.prototype, "lastName", void 0);
+], UpdateGigDto.prototype, "gigDescription", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
-    __metadata("design:type", String)
-], UpdateUserDto.prototype, "email", void 0);
-__decorate([
-    (0, class_validator_1.IsOptional)(),
-    __metadata("design:type", String)
-], UpdateUserDto.prototype, "gender", void 0);
-__decorate([
-    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsDate)(),
     __metadata("design:type", Date)
-], UpdateUserDto.prototype, "birthday", void 0);
-//# sourceMappingURL=UpdateUser.dto.js.map
+], UpdateGigDto.prototype, "gigDate", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], UpdateGigDto.prototype, "gigLocation", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], UpdateGigDto.prototype, "gigImage", void 0);
+//# sourceMappingURL=UpdateGig.dto.js.map

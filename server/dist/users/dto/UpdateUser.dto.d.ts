@@ -1,8 +1,7 @@
 export declare class UpdateUserDto {
-    name: string;
+    firstName: string;
+    lastName: string;
     email: string;
     gender: string;
     birthday: Date;
-    instruments: string[];
-    genres: string[];
 }

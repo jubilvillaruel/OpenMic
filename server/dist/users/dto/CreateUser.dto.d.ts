@@ -1,9 +1,9 @@
 export declare class CreateUserDto {
-    readonly name: string;
+    readonly firstName: string;
+    readonly lastName: string;
     readonly email: string;
     readonly password: string;
     readonly gender?: string;
     readonly birthday?: Date;
-    readonly instruments?: string[];
-    readonly genres?: string[];
+    readonly accountType: string[];
 }

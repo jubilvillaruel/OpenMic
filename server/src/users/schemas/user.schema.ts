@@ -18,12 +18,6 @@ export class User extends Document {
     @Prop({default: null })
     birthday: Date;
 
-    @Prop({default: [] })
-    instruments?: string[];
-
-    @Prop({default: [] })
-    genres?: string[];
-
     @Prop({default: Date.now })
     createdAt: Date;
  

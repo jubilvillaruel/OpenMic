@@ -9,46 +9,56 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserSchema = exports.User = void 0;
+exports.GigSchema = exports.Gig = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
-let User = class User extends mongoose_2.Document {
-    name;
-    email;
-    password;
-    gender;
-    birthday;
+let Gig = class Gig extends mongoose_2.Document {
+    gigName;
+    gigDescription;
+    gigDate;
+    gigLocation;
+    gigImage;
+    gigCreator;
+    gigContact;
     createdAt;
 };
-exports.User = User;
+exports.Gig = Gig;
 __decorate([
     (0, mongoose_1.Prop)({ required: true, minlength: 2, maxlength: 50 }),
     __metadata("design:type", String)
-], User.prototype, "name", void 0);
+], Gig.prototype, "gigName", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true, unique: true, match: /^\S+@\S+\.\S+$/ }),
+    (0, mongoose_1.Prop)({ required: true, minlength: 2, maxlength: 500 }),
     __metadata("design:type", String)
-], User.prototype, "email", void 0);
+], Gig.prototype, "gigDescription", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true, minlength: 8 }),
-    __metadata("design:type", String)
-], User.prototype, "password", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ enum: ['male', 'female', 'other'], default: null }),
-    __metadata("design:type", String)
-], User.prototype, "gender", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ default: null }),
+    (0, mongoose_1.Prop)({ required: false }),
     __metadata("design:type", Date)
-], User.prototype, "birthday", void 0);
+], Gig.prototype, "gigDate", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", String)
+], Gig.prototype, "gigLocation", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", String)
+], Gig.prototype, "gigImage", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", String)
+], Gig.prototype, "gigCreator", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", Number)
+], Gig.prototype, "gigContact", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ default: Date.now }),
     __metadata("design:type", Date)
-], User.prototype, "createdAt", void 0);
-exports.User = User = __decorate([
+], Gig.prototype, "createdAt", void 0);
+exports.Gig = Gig = __decorate([
     (0, mongoose_1.Schema)()
-], User);
-;
-exports.UserSchema = mongoose_1.SchemaFactory.createForClass(User);
-exports.UserSchema.index({ email: 1 }, { unique: true });
-//# sourceMappingURL=user.schema.js.map
+], Gig);
+exports.GigSchema = mongoose_1.SchemaFactory.createForClass(Gig);
+exports.GigSchema.index({ gigName: 1 }, { unique: true });
+exports.GigSchema.index({ gigCreator: 1 });
+//# sourceMappingURL=gig.schema.js.map

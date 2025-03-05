@@ -3,7 +3,10 @@ import { IsOptional } from "class-validator";
 export class UpdateUserDto {
 
     @IsOptional()
-    name: string;
+    firstName: string;
+
+    @IsOptional()
+    lastName: string;
 
     @IsOptional()
     email: string; 
@@ -13,10 +16,4 @@ export class UpdateUserDto {
 
     @IsOptional()
     birthday: Date;
-
-    @IsOptional()
-    instruments: string[];
-
-    @IsOptional()
-    genres: string[];
 }

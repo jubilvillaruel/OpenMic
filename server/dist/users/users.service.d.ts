@@ -17,4 +17,9 @@ export declare class UsersService {
     }> & {
         __v: number;
     }) | null>;
+    deleteUser(id: string): Promise<(import("mongoose").Document<unknown, {}, User> & User & Required<{
+        _id: unknown;
+    }> & {
+        __v: number;
+    }) | null>;
 }

@@ -9,12 +9,24 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.GigsModule = void 0;
 const common_1 = require("@nestjs/common");
 const gigs_controller_1 = require("./gigs.controller");
+const gigs_service_1 = require("./gigs.service");
+const mongoose_1 = require("@nestjs/mongoose");
+const gig_schema_1 = require("./schemas/gig.schema");
 let GigsModule = class GigsModule {
 };
 exports.GigsModule = GigsModule;
 exports.GigsModule = GigsModule = __decorate([
     (0, common_1.Module)({
-        controllers: [gigs_controller_1.GigsController]
+        imports: [
+            mongoose_1.MongooseModule.forFeature([
+                { name: gig_schema_1.Gig.name,
+                    schema: gig_schema_1.GigSchema
+                }
+            ]),
+        ],
+        controllers: [gigs_controller_1.GigsController],
+        providers: [gigs_service_1.GigsService],
+        exports: [gigs_service_1.GigsService]
     })
 ], GigsModule);
 //# sourceMappingURL=gigs.module.js.map

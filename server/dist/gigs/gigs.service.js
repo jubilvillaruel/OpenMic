@@ -12,37 +12,37 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UsersService = void 0;
+exports.GigsService = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
-const user_schema_1 = require("./schemas/user.schema");
-let UsersService = class UsersService {
-    userModel;
-    constructor(userModel) {
-        this.userModel = userModel;
+const gig_schema_1 = require("./schemas/gig.schema");
+let GigsService = class GigsService {
+    gigModel;
+    constructor(gigModel) {
+        this.gigModel = gigModel;
     }
-    createUser(createUserDto) {
-        const newUser = new this.userModel(createUserDto);
-        return newUser.save();
+    createGig(createGigDto) {
+        const newGig = new this.gigModel(createGigDto);
+        return newGig.save();
     }
-    async getUsers() {
-        return this.userModel.find().exec();
+    async getGigs() {
+        return this.gigModel.find().exec();
     }
-    async getUserById(id) {
-        return this.userModel.findById(id).exec();
+    async getGigById(id) {
+        return this.gigModel.findById(id).exec();
     }
-    async updateUser(id, updateUserDto) {
-        return this.userModel.findByIdAndUpdate(id, updateUserDto, { new: true }).exec();
+    async updateGig(id, updateGigDto) {
+        return this.gigModel.findByIdAndUpdate(id, updateGigDto, { new: true }).exec();
     }
-    async deleteUser(id) {
-        return this.userModel.findByIdAndDelete(id).exec();
+    async deleteGig(id) {
+        return this.gigModel.findByIdAndDelete(id).exec();
     }
 };
-exports.UsersService = UsersService;
-exports.UsersService = UsersService = __decorate([
+exports.GigsService = GigsService;
+exports.GigsService = GigsService = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, mongoose_1.InjectModel)(user_schema_1.User.name)),
+    __param(0, (0, mongoose_1.InjectModel)(gig_schema_1.Gig.name)),
     __metadata("design:paramtypes", [mongoose_2.Model])
-], UsersService);
-//# sourceMappingURL=users.service.js.map
+], GigsService);
+//# sourceMappingURL=gigs.service.js.map

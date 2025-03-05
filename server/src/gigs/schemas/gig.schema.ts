@@ -9,7 +9,7 @@ export class Gig extends Document {
     @Prop({ required: true, minlength: 2, maxlength: 500 })
     gigDescription: string;
 
-    @Prop({ required: true })
+    @Prop({ required: true})
     gigDate: Date;
 
     @Prop({ required: true })

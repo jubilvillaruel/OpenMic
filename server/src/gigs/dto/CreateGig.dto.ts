@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, IsDate, IsNumber } from 'class-validator';
+import { IsNotEmpty, IsString, IsDate, IsNumber} from 'class-validator';
 
 export class CreateGigDto {
     @IsNotEmpty()

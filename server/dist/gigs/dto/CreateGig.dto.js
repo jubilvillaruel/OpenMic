@@ -9,53 +9,51 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateUserDto = void 0;
+exports.CreateGigDto = void 0;
 const class_validator_1 = require("class-validator");
-class CreateUserDto {
-    firstName;
-    lastName;
-    email;
-    password;
-    gender;
-    birthday;
-    accountType;
+class CreateGigDto {
+    gigName;
+    gigDescription;
+    gigDate;
+    gigLocation;
+    gigImage;
+    gigCreator;
+    gigContact;
 }
-exports.CreateUserDto = CreateUserDto;
+exports.CreateGigDto = CreateGigDto;
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], CreateUserDto.prototype, "firstName", void 0);
+], CreateGigDto.prototype, "gigName", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], CreateUserDto.prototype, "lastName", void 0);
+], CreateGigDto.prototype, "gigDescription", void 0);
 __decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.IsEmail)(),
-    __metadata("design:type", String)
-], CreateUserDto.prototype, "email", void 0);
-__decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
-], CreateUserDto.prototype, "password", void 0);
-__decorate([
-    (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsOptional)(),
-    (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
-], CreateUserDto.prototype, "gender", void 0);
-__decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsDate)(),
     __metadata("design:type", Date)
-], CreateUserDto.prototype, "birthday", void 0);
+], CreateGigDto.prototype, "gigDate", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateGigDto.prototype, "gigLocation", void 0);
+__decorate([
     (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.IsArray)(),
-    __metadata("design:type", Array)
-], CreateUserDto.prototype, "accountType", void 0);
-//# sourceMappingURL=CreateUser.dto.js.map
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateGigDto.prototype, "gigImage", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateGigDto.prototype, "gigCreator", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], CreateGigDto.prototype, "gigContact", void 0);
+//# sourceMappingURL=CreateGig.dto.js.map
