@@ -14,6 +14,8 @@ const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const users_module_1 = require("./users/users.module");
 const gigs_module_1 = require("./gigs/gigs.module");
+const musicians_module_1 = require("./musicians/musicians.module");
+const clients_module_1 = require("./clients/clients.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -29,6 +31,8 @@ exports.AppModule = AppModule = __decorate([
             }),
             users_module_1.UsersModule,
             gigs_module_1.GigsModule,
+            musicians_module_1.MusiciansModule,
+            clients_module_1.ClientsModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

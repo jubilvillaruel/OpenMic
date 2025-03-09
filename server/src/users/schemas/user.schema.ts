@@ -4,7 +4,10 @@ import { Document } from 'mongoose';
 @Schema()
 export class User extends Document {
     @Prop({ required: true, minlength: 2, maxlength: 50 })
-    name: string;
+    firstName: string;
+
+    @Prop({ required: true, minlength: 2, maxlength: 50 })
+    lastName: string;
 
     @Prop({ required: true, unique: true, match: /^\S+@\S+\.\S+$/ })
     email: string;

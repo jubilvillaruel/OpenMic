@@ -32,7 +32,7 @@ __decorate([
     __metadata("design:type", String)
 ], CreateGigDto.prototype, "gigDescription", void 0);
 __decorate([
-    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsDate)(),
     __metadata("design:type", Date)
 ], CreateGigDto.prototype, "gigDate", void 0);
