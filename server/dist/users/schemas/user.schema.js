@@ -13,34 +13,34 @@ exports.UserSchema = exports.User = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 let User = class User extends mongoose_2.Document {
-    name;
     email;
+    username;
     password;
-    gender;
-    birthday;
+    role;
+    profileCompleted;
     createdAt;
 };
 exports.User = User;
-__decorate([
-    (0, mongoose_1.Prop)({ required: true, minlength: 2, maxlength: 50 }),
-    __metadata("design:type", String)
-], User.prototype, "name", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true, unique: true, match: /^\S+@\S+\.\S+$/ }),
     __metadata("design:type", String)
 ], User.prototype, "email", void 0);
 __decorate([
+    (0, mongoose_1.Prop)({ required: true, type: String }),
+    __metadata("design:type", String)
+], User.prototype, "username", void 0);
+__decorate([
     (0, mongoose_1.Prop)({ required: true, minlength: 8 }),
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ enum: ['male', 'female', 'other'], default: null }),
+    (0, mongoose_1.Prop)({ required: true, enum: ['musician', 'client'] }),
     __metadata("design:type", String)
-], User.prototype, "gender", void 0);
+], User.prototype, "role", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ default: null }),
-    __metadata("design:type", Date)
-], User.prototype, "birthday", void 0);
+    (0, mongoose_1.Prop)({ default: false }),
+    __metadata("design:type", Boolean)
+], User.prototype, "profileCompleted", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ default: Date.now }),
     __metadata("design:type", Date)
@@ -50,5 +50,4 @@ exports.User = User = __decorate([
 ], User);
 ;
 exports.UserSchema = mongoose_1.SchemaFactory.createForClass(User);
-exports.UserSchema.index({ email: 1 }, { unique: true });
 //# sourceMappingURL=user.schema.js.map

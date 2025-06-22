@@ -7,6 +7,7 @@ import { UsersModule } from './users/users.module';
 import { GigsModule } from './gigs/gigs.module';
 import { MusiciansModule } from './musicians/musicians.module';
 import { ClientsModule } from './clients/clients.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { ClientsModule } from './clients/clients.module';
     GigsModule,
     MusiciansModule,
     ClientsModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
