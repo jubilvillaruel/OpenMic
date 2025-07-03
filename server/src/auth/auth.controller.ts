@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Controller, Post, UseGuards } from '@nestjs/common';
-import { Body, Get, Req } from '@nestjs/common';
+import { Body, Get, Req, UnauthorizedException } from '@nestjs/common';
 import { AuthPayloadDto } from './dto/auth.dto';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './guards/local.guard';
@@ -22,10 +22,14 @@ export class AuthController {
     
     // Uses the LocalStrategy guard to validate user credentials
     @Post('login')
-    @UseGuards(LocalAuthGuard)
-    login(@Req() req: Request) {
-        return req.user; // Return the user information, which includes the token
+    async login(@Body() authPayload: AuthPayloadDto) {
+    const user = await this.authService.validateUser(authPayload);
+        if (!user) {
+        throw new UnauthorizedException('Invalid credentials');
     }
+    return user;
+}
+
 
 
     @Get('status')

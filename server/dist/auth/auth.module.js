@@ -16,6 +16,8 @@ const local_strategy_1 = require("./strategies/local.strategy");
 const jwt_strategy_1 = require("./strategies/jwt.strategy");
 const mongoose_1 = require("@nestjs/mongoose");
 const user_schema_1 = require("../users/schemas/user.schema");
+const musician_schema_1 = require("../musicians/schemas/musician.schema");
+const client_schema_1 = require("../clients/schemas/client.schema");
 let AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule;
@@ -27,10 +29,11 @@ exports.AuthModule = AuthModule = __decorate([
                 secret: 'abc123',
                 signOptions: { expiresIn: '1h' }
             }),
-            mongoose_1.MongooseModule.forFeature([{
-                    name: user_schema_1.User.name,
-                    schema: user_schema_1.UserSchema
-                }])
+            mongoose_1.MongooseModule.forFeature([
+                { name: user_schema_1.User.name, schema: user_schema_1.UserSchema },
+                { name: musician_schema_1.Musician.name, schema: musician_schema_1.MusicianSchema },
+                { name: client_schema_1.Client.name, schema: client_schema_1.ClientSchema },
+            ]),
         ],
         controllers: [auth_controller_1.AuthController],
         providers: [auth_service_1.AuthService, local_strategy_1.LocalStrategy, jwt_strategy_1.JwtStrategy],

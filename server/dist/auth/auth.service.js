@@ -18,56 +18,53 @@ const jwt_1 = require("@nestjs/jwt");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const user_schema_1 = require("../users/schemas/user.schema");
+const musician_schema_1 = require("../musicians/schemas/musician.schema");
+const client_schema_1 = require("../clients/schemas/client.schema");
 const bcrypt = require("bcrypt");
-const fakeUser = [
-    {
-        id: 1,
-        username: 'testuser',
-        password: 'testpassword',
-        email: 'testuser@example.com'
-    },
-    {
-        id: 2,
-        username: 'anotheruser',
-        password: 'anotherpassword',
-        email: 'anotheruser@example.com'
-    },
-    {
-        id: 3,
-        username: 'admin',
-        password: 'adminpassword',
-        email: 'admin@example.com'
-    }
-];
 let AuthService = class AuthService {
     userModel;
+    musicianModel;
+    clientModel;
     jwtService;
-    constructor(userModel, jwtService) {
+    constructor(userModel, musicianModel, clientModel, jwtService) {
         this.userModel = userModel;
+        this.musicianModel = musicianModel;
+        this.clientModel = clientModel;
         this.jwtService = jwtService;
     }
-    validateUser({ username, password, email }) {
-        const findUser = fakeUser.find((user) => user.username === username);
-        if (!findUser) {
+    async validateUser({ username, password, email }) {
+        if (!username && !email) {
+            console.log('No username or email provided');
             return null;
         }
-        if (password === findUser.password && email === findUser.email) {
-            const { password, ...user } = findUser;
-            const token = this.jwtService.sign(user);
-            return { ...user, token };
+        const findUser = await this.userModel.findOne({
+            $or: [
+                ...(email ? [{ email }] : []),
+                ...(username ? [{ username }] : [])
+            ]
+        });
+        if (!findUser) {
+            console.log('User not found');
+            return null;
         }
-        return null;
+        const isMatch = await bcrypt.compare(password, findUser.password);
+        if (!isMatch) {
+            console.log('Password mismatch');
+            return null;
+        }
+        const userObj = findUser.toObject();
+        const token = this.jwtService.sign(userObj);
+        console.log('Login success. Token:', token);
+        return { ...userObj, token };
     }
     async signup(signupDto) {
         const { username, password, email, role } = signupDto;
-        const emailExists = await this.userModel.findOne({
-            email
-        });
+        const emailExists = await this.userModel.findOne({ email });
         if (emailExists) {
             throw new Error('Email already exists');
         }
         const hashPassword = await bcrypt.hash(password, 10);
-        await this.userModel.create({
+        const user = await this.userModel.create({
             username,
             email,
             password: hashPassword,
@@ -75,12 +72,38 @@ let AuthService = class AuthService {
             profileCompleted: false,
             createdAt: Date.now(),
         });
+        if (role === 'musician') {
+            await this.musicianModel.create({
+                username,
+                email,
+                password: hashPassword,
+                role,
+                profileCompleted: false,
+                createdAt: Date.now(),
+            });
+        }
+        else if (role === 'client') {
+            await this.clientModel.create({
+                username,
+                email,
+                password: hashPassword,
+                role,
+                profileCompleted: false,
+                createdAt: Date.now(),
+            });
+        }
+        return { message: 'Signup successful' };
     }
 };
 exports.AuthService = AuthService;
 exports.AuthService = AuthService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_1.InjectModel)(user_schema_1.User.name)),
-    __metadata("design:paramtypes", [mongoose_2.Model, jwt_1.JwtService])
+    __param(1, (0, mongoose_1.InjectModel)(musician_schema_1.Musician.name)),
+    __param(2, (0, mongoose_1.InjectModel)(client_schema_1.Client.name)),
+    __metadata("design:paramtypes", [mongoose_2.Model,
+        mongoose_2.Model,
+        mongoose_2.Model,
+        jwt_1.JwtService])
 ], AuthService);
 //# sourceMappingURL=auth.service.js.map

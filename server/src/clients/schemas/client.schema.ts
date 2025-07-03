@@ -3,7 +3,7 @@ import { Document } from "mongoose";
 
 @Schema()
 
-export class Musician extends Document {
+export class Client extends Document {
 
     @Prop({ required: true, unique: true, match: /^\S+@\S+\.\S+$/ })
     email: string;
@@ -14,15 +14,16 @@ export class Musician extends Document {
     @Prop({ required: true, minlength: 8 })
     password: string;
 
-    @Prop({required: true, enum: ['musician'] })
-    role: 'musician';
+    @Prop({required: true, enum: ['client'] })
+    role: 'client';
 
     @Prop({ default: false })
     profileCompleted: boolean;
 
     @Prop({ default: Date.now })
     createdAt: Date;
+
 }
 
-export const MusicianSchema = SchemaFactory.createForClass(Musician);
+export const ClientSchema = SchemaFactory.createForClass(Client);
 

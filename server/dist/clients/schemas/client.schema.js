@@ -9,10 +9,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MusicianSchema = exports.Musician = void 0;
+exports.ClientSchema = exports.Client = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
-let Musician = class Musician extends mongoose_2.Document {
+let Client = class Client extends mongoose_2.Document {
     email;
     username;
     password;
@@ -20,33 +20,33 @@ let Musician = class Musician extends mongoose_2.Document {
     profileCompleted;
     createdAt;
 };
-exports.Musician = Musician;
+exports.Client = Client;
 __decorate([
     (0, mongoose_1.Prop)({ required: true, unique: true, match: /^\S+@\S+\.\S+$/ }),
     __metadata("design:type", String)
-], Musician.prototype, "email", void 0);
+], Client.prototype, "email", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true, type: String }),
     __metadata("design:type", String)
-], Musician.prototype, "username", void 0);
+], Client.prototype, "username", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true, minlength: 8 }),
     __metadata("design:type", String)
-], Musician.prototype, "password", void 0);
+], Client.prototype, "password", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true, enum: ['musician'] }),
+    (0, mongoose_1.Prop)({ required: true, enum: ['client'] }),
     __metadata("design:type", String)
-], Musician.prototype, "role", void 0);
+], Client.prototype, "role", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ default: false }),
     __metadata("design:type", Boolean)
-], Musician.prototype, "profileCompleted", void 0);
+], Client.prototype, "profileCompleted", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ default: Date.now }),
     __metadata("design:type", Date)
-], Musician.prototype, "createdAt", void 0);
-exports.Musician = Musician = __decorate([
+], Client.prototype, "createdAt", void 0);
+exports.Client = Client = __decorate([
     (0, mongoose_1.Schema)()
-], Musician);
-exports.MusicianSchema = mongoose_1.SchemaFactory.createForClass(Musician);
-//# sourceMappingURL=musician.schema.js.map
+], Client);
+exports.ClientSchema = mongoose_1.SchemaFactory.createForClass(Client);
+//# sourceMappingURL=client.schema.js.map

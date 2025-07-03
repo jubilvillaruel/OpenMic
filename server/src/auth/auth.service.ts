@@ -5,74 +5,102 @@ import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User} from '../users/schemas/user.schema';
+import { Musician } from '../musicians/schemas/musician.schema';
+import { Client } from '../clients/schemas/client.schema';
 import { SignupDto } from './dto/signup.dto';
 import * as bcrypt from 'bcrypt';
 
 
-   const fakeUser = [
-    {
-            id: 1,
-            username: 'testuser',
-            password: 'testpassword',
-            email: 'testuser@example.com'
-        },
-        {
-            id: 2,
-            username: 'anotheruser',
-            password: 'anotherpassword',
-            email: 'anotheruser@example.com'
-        },
-        {
-            id: 3,
-            username: 'admin',
-            password: 'adminpassword',
-            email: 'admin@example.com'
-        }
-    
-    ]
 
-
+// AuthService handles user authentication and signup
+// It validates user credentials and creates new users in the database
 @Injectable()
 export class AuthService {
 
-    constructor(@InjectModel(User.name) private userModel: Model<User>, private jwtService: JwtService) {}
+    constructor(
+    @InjectModel(User.name) private userModel: Model<User>,
+    @InjectModel(Musician.name) private musicianModel: Model<Musician>,
+    @InjectModel(Client.name) private clientModel: Model<Client>,
+    private jwtService: JwtService
+    ) {}
 
-    validateUser({username, password, email}: AuthPayloadDto) {
-    const findUser = fakeUser.find((user) => user.username === username);
-    if (!findUser) {
-        return null;
-    }
-    if (password === findUser.password && email === findUser.email) {
-        const { password, ...user } = findUser;
-        const token = this.jwtService.sign(user);
-        return { ...user, token }; // Return user info and token
-    }
-    return null; // Return null if password does not match
-    }
+    async validateUser({ username, password, email }: AuthPayloadDto) {
+  if (!username && !email) {
+    console.log('No username or email provided');
+    return null;
+  }
+
+  const findUser = await this.userModel.findOne({
+    $or: [
+      ...(email ? [{ email }] : []),
+      ...(username ? [{ username }] : [])
+    ]
+  });
+
+  if (!findUser) {
+    console.log('User not found');
+    return null;
+  }
+
+  const isMatch = await bcrypt.compare(password, findUser.password);
+  if (!isMatch) {
+    console.log('Password mismatch');
+    return null;
+  }
+
+  const userObj = findUser.toObject();
+  const token = this.jwtService.sign(userObj);
+  console.log('Login success. Token:', token);
+
+  return { ...userObj, token };
+}
 
 
-    async signup(signupDto: SignupDto){
-        //const newUser = new this.userModel(signupDto);
-        //return newUser.save();
-        const { username, password, email, role } = signupDto;
-        const emailExists = await this.userModel.findOne({ 
-            email
-        });
-        if (emailExists) {
-            throw new Error('Email already exists');
-        }
 
-        const hashPassword = await bcrypt.hash(password, 10);
 
-        await this.userModel.create({
+    async signup(signupDto: SignupDto) {
+    const { username, password, email, role } = signupDto;
+
+    const emailExists = await this.userModel.findOne({ email });
+    if (emailExists) {
+     throw new Error('Email already exists');
+  }
+
+    const hashPassword = await bcrypt.hash(password, 10);
+
+    const user = await this.userModel.create({
+        username,
+        email,
+        password: hashPassword,
+        role,
+        profileCompleted: false,
+        createdAt: Date.now(),
+  });
+
+     // Create role-specific profile
+    if (role === 'musician') {
+        await this.musicianModel.create({
             username,
             email,
             password: hashPassword,
             role,
-            profileCompleted: false, // Default value for profileCompleted
+            profileCompleted: false,
             createdAt: Date.now(),
-        });
+    });
+    } else if (role === 'client') {
+        await this.clientModel.create({
+            username,
+            email,
+            password: hashPassword,
+            role,
+            profileCompleted: false,
+            createdAt: Date.now(),
+    });
     }
+
+        return { message: 'Signup successful' };
+    }
+
 }
 
 

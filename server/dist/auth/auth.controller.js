@@ -15,8 +15,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthController = void 0;
 const common_1 = require("@nestjs/common");
 const common_2 = require("@nestjs/common");
+const auth_dto_1 = require("./dto/auth.dto");
 const auth_service_1 = require("./auth.service");
-const local_guard_1 = require("./guards/local.guard");
 const jwt_guard_1 = require("./guards/jwt.guard");
 const signup_dto_1 = require("./dto/signup.dto");
 let AuthController = class AuthController {
@@ -27,8 +27,12 @@ let AuthController = class AuthController {
     signup(signupDto) {
         return this.authService.signup(signupDto);
     }
-    login(req) {
-        return req.user;
+    async login(authPayload) {
+        const user = await this.authService.validateUser(authPayload);
+        if (!user) {
+            throw new common_2.UnauthorizedException('Invalid credentials');
+        }
+        return user;
     }
     status(req) {
         console.log('inside authController status');
@@ -46,11 +50,10 @@ __decorate([
 ], AuthController.prototype, "signup", null);
 __decorate([
     (0, common_1.Post)('login'),
-    (0, common_1.UseGuards)(local_guard_1.LocalAuthGuard),
-    __param(0, (0, common_2.Req)()),
+    __param(0, (0, common_2.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [auth_dto_1.AuthPayloadDto]),
+    __metadata("design:returntype", Promise)
 ], AuthController.prototype, "login", null);
 __decorate([
     (0, common_2.Get)('status'),

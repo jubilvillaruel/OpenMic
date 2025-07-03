@@ -18,13 +18,14 @@ class AuthPayloadDto {
 }
 exports.AuthPayloadDto = AuthPayloadDto;
 __decorate([
-    (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsEmail)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.ValidateIf)((o) => !o.username),
     __metadata("design:type", String)
 ], AuthPayloadDto.prototype, "email", void 0);
 __decorate([
+    (0, class_validator_1.ValidateIf)((o) => !o.email),
     (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], AuthPayloadDto.prototype, "username", void 0);
 __decorate([

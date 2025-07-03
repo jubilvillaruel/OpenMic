@@ -1,12 +1,14 @@
-import { IsEmail, IsString, IsNotEmpty, MinLength } from 'class-validator';
+import { IsEmail, IsString, IsNotEmpty, MinLength, ValidateIf } from 'class-validator';
 
 export class AuthPayloadDto {
-  @IsNotEmpty()
   @IsEmail()
+  @IsNotEmpty()
+  @ValidateIf((o: AuthPayloadDto) => !o.username)
   email: string;
 
+
+  @ValidateIf((o: AuthPayloadDto )=> !o.email)
   @IsNotEmpty()
-  @IsString()
   username: string;
 
   @IsNotEmpty()
