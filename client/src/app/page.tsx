@@ -1,16 +1,23 @@
 import React from 'react';
 import Navbar from './components/layout/navbar';
 import Footer from './components/layout/footer';
+import { Roboto } from 'next/font/google';
+import HeroSection from './components/home/heroSection';
+import GigsCarousel from './components/home/GigsCarousel';
+import MusiciansCarousel from './components/home/MusiciansCarousel';
+
+const roboto = Roboto({ subsets: ['latin'], weight: ['400'] });
 
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function Home() {
   return (
-    <html lang="en">
-      <body className="min-h-screen flex flex-col">
+    <main className={`${roboto.className} min-h-screen flex flex-col`}>
         <Navbar />
-        <main className="flex-grow container mx-auto px-4">{children}</main>
+        <HeroSection />
+        <GigsCarousel />
+        <MusiciansCarousel />
         <Footer />
-      </body>
-    </html>
-  );
+      </main>
+   
+  )
 }
