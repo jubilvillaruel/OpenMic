@@ -24,3 +24,54 @@ body {
   color: var(--foreground);
   font-family: var(--font-roboto), sans-serif;
 }
+
+
+
+@keyframes blob1 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(20px, -10px) scale(1.1);
+  }
+}
+
+@keyframes blob2 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-15px, 10px) scale(1.05);
+  }
+}
+
+@keyframes blob3 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(10px, 20px) scale(1.08);
+  }
+}
+
+@keyframes blob4 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-20px, -15px) scale(1.07);
+  }
+}
+
+.animate-blob1 {
+  animation: blob1 12s infinite ease-in-out;
+}
+.animate-blob2 {
+  animation: blob2 15s infinite ease-in-out;
+}
+.animate-blob3 {
+  animation: blob3 18s infinite ease-in-out;
+}
+.animate-blob4 {
+  animation: blob4 14s infinite ease-in-out;
+}
